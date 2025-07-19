@@ -57,9 +57,32 @@ const loginValidation = [
     .withMessage('Password tidak boleh kosong')
 ];
 
+const forgotPasswordValidation = [
+  body('email')
+    .isEmail()
+    .withMessage('Email harus valid')
+    .notEmpty()
+    .withMessage('Email tidak boleh kosong')
+];
+
+const resetPasswordValidation = [
+  body('token')
+    .notEmpty()
+    .withMessage('Token tidak boleh kosong'),
+  body('newPassword')
+    .isLength({ min: 6 })
+    .withMessage('Password minimal 6 karakter')
+    .notEmpty()
+    .withMessage('Password baru tidak boleh kosong')
+];
+
 router.post('/register', registerValidation, authController.register);
 router.post('/login', loginValidation, authController.login);
 router.get('/profile', authenticateToken, authController.getProfile);
+
+router.post('/forgot-password', forgotPasswordValidation, authController.forgotPassword);
+router.post('/reset-password', resetPasswordValidation, authController.resetPassword);
+router.get('/verify-reset-token/:token', authController.verifyResetToken);
 
 router.post('/admin/register', 
   authenticateToken, 

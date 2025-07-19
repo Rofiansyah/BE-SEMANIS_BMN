@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const authRoutes = require('./routes/authRoutes');
 const kategoriRoutes = require('./routes/kategoriRoutes');
 const merekRoutes = require('./routes/merekRoutes');
@@ -9,8 +10,34 @@ const barangRoutes = require('./routes/barangRoutes');
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "https://inventaris-fe.vercel.app"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  methods: "GET,POST,PUT,DELETE,PATCH",
+  allowedHeaders: "Content-Type,Authorization"
+}));
 app.use(express.json());
+
+// Serve static files
+app.use(express.static(path.join(__dirname, 'views')));
+
+// Reset password page route
+app.get('/reset-password', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'reset-password.html'));
+});
 
 app.use('/auth', authRoutes);
 app.use('/kategori', kategoriRoutes);

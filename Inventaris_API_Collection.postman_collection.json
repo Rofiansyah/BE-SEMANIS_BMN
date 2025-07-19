@@ -107,6 +107,65 @@
           }
         },
         {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@inventaris.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/forgot-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "forgot-password"]
+            }
+          }
+        },
+        {
+          "name": "Verify Reset Token",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/auth/verify-reset-token/:token",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "verify-reset-token", ":token"],
+              "variable": [
+                {
+                  "key": "token",
+                  "value": "reset-token-here"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"reset-token-here\",\n  \"newPassword\": \"newpassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/reset-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "reset-password"]
+            }
+          }
+        },
+        {
           "name": "Admin Register User",
           "request": {
             "method": "POST",
@@ -711,6 +770,23 @@
           "raw": "{{baseUrl}}/",
           "host": ["{{baseUrl}}"],
           "path": [""]
+        }
+      }
+    },
+    {
+      "name": "Reset Password Page",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/reset-password?token=your-reset-token",
+          "host": ["{{baseUrl}}"],
+          "path": ["reset-password"],
+          "query": [
+            {
+              "key": "token",
+              "value": "your-reset-token"
+            }
+          ]
         }
       }
     }
