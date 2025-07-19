@@ -1,0 +1,708 @@
+{
+  "info": {
+    "name": "Inventaris API Collection",
+    "description": "API Collection untuk sistem inventaris barang dengan authentication dan role-based access",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"nama\": \"John Doe\",\n  \"nomorhp\": \"081234567890\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    if (response.data && response.data.token) {",
+                  "        pm.collectionVariables.set('token', response.data.token);",
+                  "        console.log('Token saved:', response.data.token);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@inventaris.com\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Admin Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"newuser@example.com\",\n  \"nama\": \"New User\",\n  \"nomorhp\": \"081234567891\",\n  \"password\": \"password123\",\n  \"role\": \"USER\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/admin/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "admin", "register"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Kategori",
+      "item": [
+        {
+          "name": "Get All Kategori",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/kategori",
+              "host": ["{{baseUrl}}"],
+              "path": ["kategori"]
+            }
+          }
+        },
+        {
+          "name": "Get Kategori by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/kategori/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["kategori", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "kategori-id-here"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Kategori",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nama\": \"Elektronik\",\n  \"deskripsi\": \"Barang-barang elektronik\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/kategori",
+              "host": ["{{baseUrl}}"],
+              "path": ["kategori"]
+            }
+          }
+        },
+        {
+          "name": "Update Kategori",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nama\": \"Elektronik Updated\",\n  \"deskripsi\": \"Barang-barang elektronik yang sudah diupdate\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/kategori/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["kategori", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "kategori-id-here"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Kategori",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/kategori/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["kategori", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "kategori-id-here"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Merek",
+      "item": [
+        {
+          "name": "Get All Merek",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/merek",
+              "host": ["{{baseUrl}}"],
+              "path": ["merek"]
+            }
+          }
+        },
+        {
+          "name": "Get Merek by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/merek/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["merek", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "merek-id-here"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Merek",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nama\": \"Samsung\",\n  \"deskripsi\": \"Merek elektronik terkenal\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/merek",
+              "host": ["{{baseUrl}}"],
+              "path": ["merek"]
+            }
+          }
+        },
+        {
+          "name": "Update Merek",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nama\": \"Samsung Updated\",\n  \"deskripsi\": \"Merek elektronik terkenal yang sudah diupdate\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/merek/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["merek", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "merek-id-here"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Merek",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/merek/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["merek", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "merek-id-here"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Lokasi",
+      "item": [
+        {
+          "name": "Get All Lokasi",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/lokasi",
+              "host": ["{{baseUrl}}"],
+              "path": ["lokasi"]
+            }
+          }
+        },
+        {
+          "name": "Get Lokasi by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/lokasi/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["lokasi", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "lokasi-id-here"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Lokasi",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nama\": \"Gudang A\",\n  \"deskripsi\": \"Gudang utama lantai 1\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/lokasi",
+              "host": ["{{baseUrl}}"],
+              "path": ["lokasi"]
+            }
+          }
+        },
+        {
+          "name": "Update Lokasi",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nama\": \"Gudang A Updated\",\n  \"deskripsi\": \"Gudang utama lantai 1 yang sudah diupdate\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/lokasi/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["lokasi", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "lokasi-id-here"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Lokasi",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/lokasi/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["lokasi", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "lokasi-id-here"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Barang",
+      "item": [
+        {
+          "name": "Get All Barang",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/barang",
+              "host": ["{{baseUrl}}"],
+              "path": ["barang"]
+            }
+          }
+        },
+        {
+          "name": "Get Barang by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/barang/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["barang", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "barang-id-here"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Barang by Kode",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/barang/kode/:kodeBarang",
+              "host": ["{{baseUrl}}"],
+              "path": ["barang", "kode", ":kodeBarang"],
+              "variable": [
+                {
+                  "key": "kodeBarang",
+                  "value": "BRG-E001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Barang (with Photo)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "deskripsi",
+                  "value": "Laptop gaming high performance untuk kebutuhan programming dan gaming",
+                  "type": "text"
+                },
+                {
+                  "key": "kategoriId",
+                  "value": "kategori-id-here",
+                  "type": "text"
+                },
+                {
+                  "key": "merekId",
+                  "value": "merek-id-here",
+                  "type": "text"
+                },
+                {
+                  "key": "lokasiId",
+                  "value": "lokasi-id-here",
+                  "type": "text"
+                },
+                {
+                  "key": "kondisi",
+                  "value": "BAIK",
+                  "type": "text"
+                },
+                {
+                  "key": "foto",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/barang",
+              "host": ["{{baseUrl}}"],
+              "path": ["barang"]
+            }
+          }
+        },
+        {
+          "name": "Create Barang (without Photo)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deskripsi\": \"Smartphone android terbaru dengan spesifikasi tinggi\",\n  \"kategoriId\": \"kategori-id-here\",\n  \"merekId\": \"merek-id-here\",\n  \"lokasiId\": \"lokasi-id-here\",\n  \"kondisi\": \"BAIK\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/barang",
+              "host": ["{{baseUrl}}"],
+              "path": ["barang"]
+            }
+          }
+        },
+        {
+          "name": "Update Barang (with Photo)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "deskripsi",
+                  "value": "Laptop gaming high performance untuk kebutuhan programming dan gaming - Updated",
+                  "type": "text"
+                },
+                {
+                  "key": "kondisi",
+                  "value": "RUSAK_RINGAN",
+                  "type": "text"
+                },
+                {
+                  "key": "foto",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/barang/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["barang", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "barang-id-here"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Barang (without Photo)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deskripsi\": \"Smartphone android terbaru dengan spesifikasi tinggi - Updated\",\n  \"kondisi\": \"RUSAK_RINGAN\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/barang/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["barang", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "barang-id-here"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Barang",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/barang/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["barang", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "barang-id-here"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/",
+          "host": ["{{baseUrl}}"],
+          "path": [""]
+        }
+      }
+    }
+  ]
+}

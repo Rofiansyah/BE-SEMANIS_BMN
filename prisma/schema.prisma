@@ -25,3 +25,72 @@ model User {
 
   @@map("users")
 }
+
+model Kategori {
+  id        String @id @default(uuid())
+  nama      String @unique
+  deskripsi String?
+  
+  barang    Barang[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("kategori")
+}
+
+model Merek {
+  id        String @id @default(uuid())
+  nama      String @unique
+  deskripsi String?
+  
+  barang    Barang[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("merek")
+}
+
+model Lokasi {
+  id        String @id @default(uuid())
+  nama      String @unique
+  deskripsi String?
+  
+  barang    Barang[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("lokasi")
+}
+
+enum KondisiBarang {
+  BAIK
+  RUSAK_RINGAN
+  RUSAK_BERAT
+  HILANG
+}
+
+model Barang {
+  id           String        @id @default(uuid())
+  kodeBarang   String        @unique
+  deskripsi    String
+  kondisi      KondisiBarang @default(BAIK)
+  fotoUrl      String?
+  qrCodeUrl    String?
+  
+  kategoriId   String
+  kategori     Kategori      @relation(fields: [kategoriId], references: [id])
+  
+  merekId      String
+  merek        Merek         @relation(fields: [merekId], references: [id])
+  
+  lokasiId     String
+  lokasi       Lokasi        @relation(fields: [lokasiId], references: [id])
+  
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("barang")
+}
