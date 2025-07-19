@@ -2,7 +2,7 @@ const prisma = require('../configs/prisma');
 
 class LokasiService {
   async createLokasi(lokasiData) {
-    const { nama, deskripsi } = lokasiData;
+    const { nama } = lokasiData;
 
     const existingLokasi = await prisma.lokasi.findUnique({
       where: { nama }
@@ -14,8 +14,7 @@ class LokasiService {
 
     return await prisma.lokasi.create({
       data: {
-        nama,
-        deskripsi
+        nama
       }
     });
   }
@@ -57,7 +56,7 @@ class LokasiService {
   }
 
   async updateLokasi(id, lokasiData) {
-    const { nama, deskripsi } = lokasiData;
+    const { nama } = lokasiData;
     
     await this.getLokasiById(id);
 
@@ -77,8 +76,7 @@ class LokasiService {
     return await prisma.lokasi.update({
       where: { id },
       data: {
-        nama,
-        deskripsi
+        nama
       }
     });
   }

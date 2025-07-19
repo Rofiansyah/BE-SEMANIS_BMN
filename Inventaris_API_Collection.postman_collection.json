@@ -180,7 +180,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nama\": \"Elektronik\",\n  \"deskripsi\": \"Barang-barang elektronik\"\n}"
+              "raw": "{\n  \"nama\": \"Elektronik\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/kategori",
@@ -205,7 +205,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nama\": \"Elektronik Updated\",\n  \"deskripsi\": \"Barang-barang elektronik yang sudah diupdate\"\n}"
+              "raw": "{\n  \"nama\": \"Elektronik Updated\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/kategori/:id",
@@ -292,7 +292,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nama\": \"Samsung\",\n  \"deskripsi\": \"Merek elektronik terkenal\"\n}"
+              "raw": "{\n  \"nama\": \"Samsung\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/merek",
@@ -317,7 +317,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nama\": \"Samsung Updated\",\n  \"deskripsi\": \"Merek elektronik terkenal yang sudah diupdate\"\n}"
+              "raw": "{\n  \"nama\": \"Samsung Updated\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/merek/:id",
@@ -404,7 +404,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nama\": \"Gudang A\",\n  \"deskripsi\": \"Gudang utama lantai 1\"\n}"
+              "raw": "{\n  \"nama\": \"Gudang A\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/lokasi",
@@ -429,7 +429,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nama\": \"Gudang A Updated\",\n  \"deskripsi\": \"Gudang utama lantai 1 yang sudah diupdate\"\n}"
+              "raw": "{\n  \"nama\": \"Gudang A Updated\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/lokasi/:id",
@@ -531,6 +531,11 @@
               "mode": "formdata",
               "formdata": [
                 {
+                  "key": "nama",
+                  "value": "Laptop Gaming ROG",
+                  "type": "text"
+                },
+                {
                   "key": "deskripsi",
                   "value": "Laptop gaming high performance untuk kebutuhan programming dan gaming",
                   "type": "text"
@@ -585,7 +590,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"deskripsi\": \"Smartphone android terbaru dengan spesifikasi tinggi\",\n  \"kategoriId\": \"kategori-id-here\",\n  \"merekId\": \"merek-id-here\",\n  \"lokasiId\": \"lokasi-id-here\",\n  \"kondisi\": \"BAIK\"\n}"
+              "raw": "{\n  \"nama\": \"Smartphone Galaxy\",\n  \"deskripsi\": \"Smartphone android terbaru dengan spesifikasi tinggi\",\n  \"kategoriId\": \"kategori-id-here\",\n  \"merekId\": \"merek-id-here\",\n  \"lokasiId\": \"lokasi-id-here\",\n  \"kondisi\": \"BAIK\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/barang",
@@ -607,6 +612,11 @@
             "body": {
               "mode": "formdata",
               "formdata": [
+                {
+                  "key": "nama",
+                  "value": "Laptop Gaming ROG Updated",
+                  "type": "text"
+                },
                 {
                   "key": "deskripsi",
                   "value": "Laptop gaming high performance untuk kebutuhan programming dan gaming - Updated",
@@ -653,7 +663,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"deskripsi\": \"Smartphone android terbaru dengan spesifikasi tinggi - Updated\",\n  \"kondisi\": \"RUSAK_RINGAN\"\n}"
+              "raw": "{\n  \"nama\": \"Smartphone Galaxy Updated\",\n  \"deskripsi\": \"Smartphone android terbaru dengan spesifikasi tinggi - Updated\",\n  \"kondisi\": \"RUSAK_RINGAN\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/barang/:id",

@@ -62,13 +62,7 @@ class AuthService {
 
     return {
       token,
-      user: {
-        id: user.id,
-        email: user.email,
-        nama: user.nama,
-        nomorhp: user.nomorhp,
-        role: user.role
-      }
+      role: user.role
     };
   }
 

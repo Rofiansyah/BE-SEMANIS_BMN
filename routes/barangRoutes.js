@@ -7,6 +7,11 @@ const upload = require('../configs/multer');
 const router = express.Router();
 
 const barangValidation = [
+  body('nama')
+    .notEmpty()
+    .withMessage('Nama barang tidak boleh kosong')
+    .isLength({ min: 2 })
+    .withMessage('Nama barang minimal 2 karakter'),
   body('deskripsi')
     .notEmpty()
     .withMessage('Deskripsi tidak boleh kosong')
@@ -34,6 +39,10 @@ const barangValidation = [
 ];
 
 const barangUpdateValidation = [
+  body('nama')
+    .optional()
+    .isLength({ min: 2 })
+    .withMessage('Nama barang minimal 2 karakter'),
   body('deskripsi')
     .optional()
     .isLength({ min: 5 })

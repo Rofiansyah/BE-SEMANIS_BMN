@@ -2,7 +2,7 @@ const prisma = require('../configs/prisma');
 
 class MerekService {
   async createMerek(merekData) {
-    const { nama, deskripsi } = merekData;
+    const { nama } = merekData;
 
     const existingMerek = await prisma.merek.findUnique({
       where: { nama }
@@ -14,8 +14,7 @@ class MerekService {
 
     return await prisma.merek.create({
       data: {
-        nama,
-        deskripsi
+        nama
       }
     });
   }
@@ -57,7 +56,7 @@ class MerekService {
   }
 
   async updateMerek(id, merekData) {
-    const { nama, deskripsi } = merekData;
+    const { nama } = merekData;
     
     await this.getMerekById(id);
 
@@ -77,8 +76,7 @@ class MerekService {
     return await prisma.merek.update({
       where: { id },
       data: {
-        nama,
-        deskripsi
+        nama
       }
     });
   }

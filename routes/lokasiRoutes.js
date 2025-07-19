@@ -10,11 +10,7 @@ const lokasiValidation = [
     .notEmpty()
     .withMessage('Nama lokasi tidak boleh kosong')
     .isLength({ min: 2 })
-    .withMessage('Nama lokasi minimal 2 karakter'),
-  body('deskripsi')
-    .optional()
-    .isLength({ max: 255 })
-    .withMessage('Deskripsi maksimal 255 karakter')
+    .withMessage('Nama lokasi minimal 2 karakter')
 ];
 
 router.get('/', lokasiController.getAll);

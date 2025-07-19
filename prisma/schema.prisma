@@ -29,7 +29,6 @@ model User {
 model Kategori {
   id        String @id @default(uuid())
   nama      String @unique
-  deskripsi String?
   
   barang    Barang[]
   
@@ -42,7 +41,6 @@ model Kategori {
 model Merek {
   id        String @id @default(uuid())
   nama      String @unique
-  deskripsi String?
   
   barang    Barang[]
   
@@ -55,7 +53,6 @@ model Merek {
 model Lokasi {
   id        String @id @default(uuid())
   nama      String @unique
-  deskripsi String?
   
   barang    Barang[]
   
@@ -75,6 +72,7 @@ enum KondisiBarang {
 model Barang {
   id           String        @id @default(uuid())
   kodeBarang   String        @unique
+  nama         String
   deskripsi    String
   kondisi      KondisiBarang @default(BAIK)
   fotoUrl      String?

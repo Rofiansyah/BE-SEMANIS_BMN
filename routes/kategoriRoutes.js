@@ -10,11 +10,7 @@ const kategoriValidation = [
     .notEmpty()
     .withMessage('Nama kategori tidak boleh kosong')
     .isLength({ min: 2 })
-    .withMessage('Nama kategori minimal 2 karakter'),
-  body('deskripsi')
-    .optional()
-    .isLength({ max: 255 })
-    .withMessage('Deskripsi maksimal 255 karakter')
+    .withMessage('Nama kategori minimal 2 karakter')
 ];
 
 router.get('/', kategoriController.getAll);

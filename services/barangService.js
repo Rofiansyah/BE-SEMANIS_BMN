@@ -38,6 +38,7 @@ class BarangService {
   async generateQRCode(barangData) {
     const qrData = {
       kodeBarang: barangData.kodeBarang,
+      nama: barangData.nama,
       deskripsi: barangData.deskripsi,
       kategori: barangData.kategori.nama,
       merek: barangData.merek.nama,
@@ -68,7 +69,7 @@ class BarangService {
   }
 
   async createBarang(barangData, fotoFile) {
-    const { deskripsi, kategoriId, merekId, lokasiId, kondisi } = barangData;
+    const { nama, deskripsi, kategoriId, merekId, lokasiId, kondisi } = barangData;
 
     const [kategori, merek, lokasi] = await Promise.all([
       prisma.kategori.findUnique({ where: { id: kategoriId } }),
@@ -90,6 +91,7 @@ class BarangService {
     const barang = await prisma.barang.create({
       data: {
         kodeBarang,
+        nama,
         deskripsi,
         kondisi,
         fotoUrl,
@@ -170,7 +172,7 @@ class BarangService {
       }
     });
 
-    if (barangData.kategoriId || barangData.merekId || barangData.lokasiId || barangData.kondisi || barangData.deskripsi) {
+    if (barangData.kategoriId || barangData.merekId || barangData.lokasiId || barangData.kondisi || barangData.deskripsi || barangData.nama) {
       const qrCodeUrl = await this.generateQRCode(updatedBarang);
       await prisma.barang.update({
         where: { id },

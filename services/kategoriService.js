@@ -2,7 +2,7 @@ const prisma = require('../configs/prisma');
 
 class KategoriService {
   async createKategori(kategoriData) {
-    const { nama, deskripsi } = kategoriData;
+    const { nama } = kategoriData;
 
     const existingKategori = await prisma.kategori.findUnique({
       where: { nama }
@@ -14,8 +14,7 @@ class KategoriService {
 
     return await prisma.kategori.create({
       data: {
-        nama,
-        deskripsi
+        nama
       }
     });
   }
@@ -57,7 +56,7 @@ class KategoriService {
   }
 
   async updateKategori(id, kategoriData) {
-    const { nama, deskripsi } = kategoriData;
+    const { nama } = kategoriData;
     
     await this.getKategoriById(id);
 
@@ -77,8 +76,7 @@ class KategoriService {
     return await prisma.kategori.update({
       where: { id },
       data: {
-        nama,
-        deskripsi
+        nama
       }
     });
   }

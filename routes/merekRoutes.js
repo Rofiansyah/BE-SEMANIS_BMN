@@ -10,11 +10,7 @@ const merekValidation = [
     .notEmpty()
     .withMessage('Nama merek tidak boleh kosong')
     .isLength({ min: 2 })
-    .withMessage('Nama merek minimal 2 karakter'),
-  body('deskripsi')
-    .optional()
-    .isLength({ max: 255 })
-    .withMessage('Deskripsi maksimal 255 karakter')
+    .withMessage('Nama merek minimal 2 karakter')
 ];
 
 router.get('/', merekController.getAll);
