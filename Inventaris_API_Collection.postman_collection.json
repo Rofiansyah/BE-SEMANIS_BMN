@@ -763,6 +763,301 @@
       ]
     },
     {
+      "name": "Peminjaman",
+      "item": [
+        {
+          "name": "User - Apply for Borrowing",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"barangId\": \"barang-id-here\",\n  \"catatan\": \"Membutuhkan laptop untuk presentasi client\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/peminjaman/request",
+              "host": ["{{baseUrl}}"],
+              "path": ["peminjaman", "request"]
+            }
+          }
+        },
+        {
+          "name": "User - Get My Borrowing Requests",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/peminjaman/my-requests",
+              "host": ["{{baseUrl}}"],
+              "path": ["peminjaman", "my-requests"]
+            }
+          }
+        },
+        {
+          "name": "User - Get My Borrowing History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/peminjaman/my-history",
+              "host": ["{{baseUrl}}"],
+              "path": ["peminjaman", "my-history"]
+            }
+          }
+        },
+        {
+          "name": "Get Borrowing Request by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/peminjaman/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["peminjaman", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "peminjaman-id-here"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Admin - Get All Borrowing Requests",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/peminjaman/admin/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["peminjaman", "admin", "all"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Get Borrowing Reports",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/peminjaman/admin/reports",
+              "host": ["{{baseUrl}}"],
+              "path": ["peminjaman", "admin", "reports"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Approve Borrowing Request (with Photo)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "penanggungJawab",
+                  "value": "John Doe - IT Support",
+                  "type": "text"
+                },
+                {
+                  "key": "fotoPinjam",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/peminjaman/admin/:id/approve",
+              "host": ["{{baseUrl}}"],
+              "path": ["peminjaman", "admin", ":id", "approve"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "peminjaman-id-here"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Admin - Approve Borrowing Request (without Photo)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"penanggungJawab\": \"John Doe - IT Support\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/peminjaman/admin/:id/approve",
+              "host": ["{{baseUrl}}"],
+              "path": ["peminjaman", "admin", ":id", "approve"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "peminjaman-id-here"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Admin - Reject Borrowing Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"catatan\": \"Barang sedang dalam perawatan, tidak dapat dipinjam saat ini\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/peminjaman/admin/:id/reject",
+              "host": ["{{baseUrl}}"],
+              "path": ["peminjaman", "admin", ":id", "reject"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "peminjaman-id-here"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Admin - Process Item Return (with Photo)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "penanggungJawab",
+                  "value": "Jane Smith - IT Support",
+                  "type": "text"
+                },
+                {
+                  "key": "catatan",
+                  "value": "Barang dikembalikan dalam kondisi baik",
+                  "type": "text"
+                },
+                {
+                  "key": "fotoKembali",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/peminjaman/admin/:id/return",
+              "host": ["{{baseUrl}}"],
+              "path": ["peminjaman", "admin", ":id", "return"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "peminjaman-id-here"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Admin - Process Item Return (without Photo)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"penanggungJawab\": \"Jane Smith - IT Support\",\n  \"catatan\": \"Barang dikembalikan dalam kondisi baik\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/peminjaman/admin/:id/return",
+              "host": ["{{baseUrl}}"],
+              "path": ["peminjaman", "admin", ":id", "return"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "peminjaman-id-here"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
       "name": "Health Check",
       "request": {
         "method": "GET",

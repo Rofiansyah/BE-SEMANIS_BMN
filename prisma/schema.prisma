@@ -22,6 +22,9 @@ model User {
   resetToken         String?
   resetTokenExpiry   DateTime?
   
+  peminjaman         Peminjaman[]
+  approvedPeminjaman Peminjaman[] @relation("ApprovedBy")
+  
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
 
@@ -71,12 +74,27 @@ enum KondisiBarang {
   HILANG
 }
 
+enum StatusBarang {
+  TERSEDIA
+  DIPINJAM
+  DALAM_PROSES_PEMINJAMAN
+}
+
+enum StatusPeminjaman {
+  PENDING
+  DISETUJUI
+  DITOLAK
+  DIPINJAM
+  DIKEMBALIKAN
+}
+
 model Barang {
   id           String        @id @default(uuid())
   kodeBarang   String        @unique
   nama         String
   deskripsi    String
   kondisi      KondisiBarang @default(BAIK)
+  status       StatusBarang  @default(TERSEDIA)
   fotoUrl      String?
   qrCodeUrl    String?
   
@@ -89,8 +107,38 @@ model Barang {
   lokasiId     String
   lokasi       Lokasi        @relation(fields: [lokasiId], references: [id])
   
+  peminjaman   Peminjaman[]
+  
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 
   @@map("barang")
+}
+
+model Peminjaman {
+  id                  String           @id @default(uuid())
+  userId              String
+  user                User             @relation(fields: [userId], references: [id])
+  
+  barangId            String
+  barang              Barang           @relation(fields: [barangId], references: [id])
+  
+  status              StatusPeminjaman @default(PENDING)
+  tanggalPengajuan    DateTime         @default(now())
+  tanggalDisetujui    DateTime?
+  tanggalDipinjam     DateTime?
+  tanggalDikembalikan DateTime?
+  
+  penanggungJawab     String?
+  fotoPinjam          String?
+  fotoKembali         String?
+  catatan             String?
+  
+  approvedBy          String?
+  approvedByUser      User?            @relation("ApprovedBy", fields: [approvedBy], references: [id])
+  
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
+
+  @@map("peminjaman")
 }

@@ -37,13 +37,15 @@ class BarangService {
 
   async generateQRCode(barangData) {
     const qrData = {
+      id: barangData.id,
       kodeBarang: barangData.kodeBarang,
       nama: barangData.nama,
       deskripsi: barangData.deskripsi,
       kategori: barangData.kategori.nama,
       merek: barangData.merek.nama,
       lokasi: barangData.lokasi.nama,
-      kondisi: barangData.kondisi
+      kondisi: barangData.kondisi,
+      status: barangData.status || 'TERSEDIA'
     };
 
     const qrCodeDataUrl = await QRCode.toDataURL(JSON.stringify(qrData));

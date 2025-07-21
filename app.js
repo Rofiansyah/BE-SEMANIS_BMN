@@ -7,6 +7,7 @@ const kategoriRoutes = require('./routes/kategoriRoutes');
 const merekRoutes = require('./routes/merekRoutes');
 const lokasiRoutes = require('./routes/lokasiRoutes');
 const barangRoutes = require('./routes/barangRoutes');
+const peminjamanRoutes = require('./routes/peminjamanRoutes');
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use('/kategori', kategoriRoutes);
 app.use('/merek', merekRoutes);
 app.use('/lokasi', lokasiRoutes);
 app.use('/barang', barangRoutes);
+app.use('/peminjaman', peminjamanRoutes);
 
 app.get('/', (req, res) => {
   res.json({ 
@@ -53,7 +55,8 @@ app.get('/', (req, res) => {
       kategori: '/kategori',
       merek: '/merek',
       lokasi: '/lokasi',
-      barang: '/barang'
+      barang: '/barang',
+      peminjaman: '/peminjaman'
     }
   });
 });
