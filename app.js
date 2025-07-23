@@ -8,6 +8,7 @@ const merekRoutes = require('./routes/merekRoutes');
 const lokasiRoutes = require('./routes/lokasiRoutes');
 const barangRoutes = require('./routes/barangRoutes');
 const peminjamanRoutes = require('./routes/peminjamanRoutes');
+const statisticsRoutes = require('./routes/statisticsRoutes');
 
 const app = express();
 
@@ -46,6 +47,7 @@ app.use('/merek', merekRoutes);
 app.use('/lokasi', lokasiRoutes);
 app.use('/barang', barangRoutes);
 app.use('/peminjaman', peminjamanRoutes);
+app.use('/statistics', statisticsRoutes);
 
 app.get('/', (req, res) => {
   res.json({ 
@@ -56,7 +58,8 @@ app.get('/', (req, res) => {
       merek: '/merek',
       lokasi: '/lokasi',
       barang: '/barang',
-      peminjaman: '/peminjaman'
+      peminjaman: '/peminjaman',
+      statistics: '/statistics'
     }
   });
 });
