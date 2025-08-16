@@ -76,7 +76,7 @@ const generateResetPasswordEmail = (resetLink, userNama) => {
           <p>Jika Anda tidak meminta reset password, abaikan email ini.</p>
         </div>
         <div class="footer">
-          <p>&copy; 2024 Inventaris System. All rights reserved.</p>
+          <p>&copy; 2025 SEMANIS BMN. All rights reserved.</p>
         </div>
       </div>
     </body>

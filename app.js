@@ -15,8 +15,8 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:5173",
-  "https://inventaris-fe.vercel.app",
-  "https://inventaris-be.vercel.app"
+  "https://inventaris-be-fawn.vercel.app",
+  "https://semanis-bmn.vercel.app"
 ];
 
 app.use(cors({
