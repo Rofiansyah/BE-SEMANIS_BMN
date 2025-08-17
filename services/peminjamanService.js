@@ -302,8 +302,37 @@ const getUserPeminjamanHistory = async (userId) => {
           kodeBarang: true, 
           fotoUrl: true,
           kategori: { select: { nama: true } },
-          merek: { select: { nama: true } }
+          merek: { select: { nama: true } },
+          lokasi: { select: { nama: true } }
         }
+      }
+    },
+    orderBy: { createdAt: 'desc' }
+  });
+};
+
+const getAllPeminjamanHistory = async () => {
+  return await prisma.peminjaman.findMany({
+    where: { 
+      status: { in: ['DIKEMBALIKAN', 'DITOLAK'] }
+    },
+    include: {
+      user: {
+        select: { id: true, nama: true, email: true, nomorhp: true }
+      },
+      barang: {
+        select: { 
+          id: true, 
+          nama: true, 
+          kodeBarang: true, 
+          fotoUrl: true,
+          kategori: { select: { nama: true } },
+          merek: { select: { nama: true } },
+          lokasi: { select: { nama: true } }
+        }
+      },
+      approvedByUser: {
+        select: { id: true, nama: true, email: true }
       }
     },
     orderBy: { createdAt: 'desc' }
@@ -320,5 +349,6 @@ module.exports = {
   returnBarang,
   getPeminjamanReports,
   getUserPeminjamanHistory,
+  getAllPeminjamanHistory,
   uploadImage
 };

@@ -65,6 +65,29 @@ const getUserPeminjamanHistory = async (req, res) => {
   }
 };
 
+const getAdminPeminjamanHistory = async (req, res) => {
+  try {
+    if (req.user.role !== 'ADMIN') {
+      return res.status(403).json({
+        status: 'error',
+        message: 'Akses ditolak. Hanya admin yang dapat melihat semua history.'
+      });
+    }
+    
+    const history = await peminjamanService.getAllPeminjamanHistory();
+    
+    res.json({
+      status: 'success',
+      data: history
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: error.message
+    });
+  }
+};
+
 const getPeminjamanById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -257,6 +280,7 @@ module.exports = {
   createPeminjamanRequest,
   getUserPeminjaman,
   getUserPeminjamanHistory,
+  getAdminPeminjamanHistory,
   getPeminjamanById,
   getAllPeminjamanRequests,
   approvePeminjamanRequest,

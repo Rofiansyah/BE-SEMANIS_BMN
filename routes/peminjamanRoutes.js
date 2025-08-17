@@ -23,6 +23,12 @@ router.get(
 );
 
 router.get(
+  '/admin/history', 
+  authenticateToken, 
+  peminjamanController.getAdminPeminjamanHistory
+);
+
+router.get(
   '/admin/all', 
   authenticateToken, 
   peminjamanController.getAllPeminjamanRequests
