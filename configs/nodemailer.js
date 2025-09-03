@@ -59,18 +59,36 @@ const generateResetPasswordEmail = (resetLink, userNama) => {
     .logo img { max-height: 80px; max-width: 100%; object-fit: contain; }
     .title { text-align: center; font-size: 20px; font-weight: 600; margin-bottom: 8px; color: #111827; }
     .subtitle { text-align: center; font-size: 14px; color: #4b5563; margin-bottom: 24px; }
-    .button { 
-  display: block; 
-  width: 100%; 
-  text-align: center; 
-  background: #162456; 
-  color: #fff;              /* <-- pastikan teks putih */
-  padding: 14px 0; 
-  border-radius: 8px; 
-  text-decoration: none; 
-  font-size: 16px; 
-  font-weight: 600; 
-  margin: 20px 0; 
+.button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: transparent;       /* bg-transparent */
+  border: 1px solid #162456;     /* border border-blue-300 */
+  color: #364153;                /* teks biru tua */
+  padding: 14px 0;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 20px 0;
+}
+
+/* Hover effect (hover:bg-blue-50) */
+.button:hover {
+  background: #eff6ff;           /* biru muda saat hover */
+}
+
+/* Focus effect (focus-visible:ring-blue-500) */
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); 
+}
+
+.logo img { 
+  max-height: 500px; 
+  max-width: 504; 
+  object-fit: contain; 
 }
 
     .link-box { word-break: break-all; background: #f3f4f6; padding: 12px; border-radius: 6px; font-size: 13px; color: #1f2937; }
@@ -84,7 +102,7 @@ const generateResetPasswordEmail = (resetLink, userNama) => {
 
       <!-- Logo -->
       <div class="logo">
-        <img src="https://drive.google.com/uc?export=view&id=1NDP97vjsJ7QA4XLtnwZu0OGdP-PfbPhP" alt="SEMANTIS BMN Logo">
+        <img src="https://drive.google.com/uc?export=view&id=1Q8ar2pGOH55O2FqBXrMzfrWBp_DEmrc1" alt="SEMANTIS BMN Logo">
       </div>
 
       <!-- Title -->
@@ -100,10 +118,6 @@ const generateResetPasswordEmail = (resetLink, userNama) => {
 
       <p style="font-size: 13px; color: #b91c1c; margin-top: 12px;"><strong>Link ini hanya berlaku 1 jam.</strong></p>
       <p style="font-size: 13px; color: #4b5563;">Jika Anda tidak meminta reset password, abaikan email ini.</p>
-
-      <div style="margin-top: 24px; text-align: center;">
-        <a href="/login/user" class="back-link">Kembali ke login</a>
-      </div>
 
     </div>
 

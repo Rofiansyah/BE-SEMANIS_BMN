@@ -116,7 +116,7 @@ class AuthService {
     
     await sendEmail(
       user.email,
-      'Reset Password - Inventaris System',
+      'Reset Password - SEMANIS-BMN',
       emailHtml
     );
 
